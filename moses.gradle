@@ -1,0 +1,30 @@
+// 本moses.gradle文件用于统一配置各个module的build.gradle文件内容的公共部分
+
+// 1、每个gradle文件对应一个module（或者说是project 工程）
+// 2、可以为module扩展属性
+// 3、所以通过ext闭包引入moses.gradle文件对应的module，去扩展一些属性
+// 4、这些属性主要分为3部分：android部分、依赖部分dependency（需要依赖的每个第三方库的版本号）、需要依赖的第三方库的地址
+
+ext {
+    android = [
+            applicationId : 'com.moses.moses_voice',
+            compileSdkVersion : 28,
+            minSdkVersion : 19,
+            targetSdkVersion : 28,
+            versionCode : 1,
+            versionName : '1.0',
+            multiDexEnabled : true // 多分包支持
+    ]
+
+    //每个依赖会有各种版本，这里存入所有需要依赖的第三方库的版本号
+    depsVersion = [
+            appcompat : '28.0.0'
+    ]
+
+    // 需要依赖使用的第三方库
+    depsLibsAddress = [
+            appcompat : "com.android.support:appcompat-v7:${depsVersion.appcompat}"  // app兼容库
+    ]
+
+}
+
