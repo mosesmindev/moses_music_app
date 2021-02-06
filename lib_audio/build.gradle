@@ -1,24 +1,33 @@
 apply plugin: 'com.android.library'
 // 1、lib_audio是后面要重点开发的库
 // 2、有很多试验性和接入性的功能都是在lib_audio中完成
-// 3、需要上传到maven仓库，就要引入maven插件
+// 3、需要上传到maven私服仓库，就要引入maven插件
 apply plugin: 'maven'//maven插件已经被gradle自动依赖进来了，所以不需要依赖任何第三方插件就可以直接引入maven插件
 
 def pomName = this.getName()// 获取当前项目工程（module）的名称  (this代表当前构建脚本所属的Project对象，即当前module：lib_audio)
 def pomVersion ='1.0.0-SNAPSHOT'   // 我们要上传的库的版本号
 def pomDescription = 'the audio library for all projects'
 
-
 android {
-    compileSdkVersion 28  // AS默认30
-    // AS默认buildToolsVersion 30.0.3
-    // buildToolsVersion "30.0.3"
+//    compileSdkVersion 28  // AS默认30
+//    // AS默认buildToolsVersion 30.0.3
+//    // buildToolsVersion "30.0.3"
+//
+//    defaultConfig {
+//        minSdkVersion 19
+//        targetSdkVersion 28 // AS默认30
+//        versionCode 1
+//        versionName "1.0"
+    compileSdkVersion this.rootProject.android.compileSdkVersion
+
 
     defaultConfig {
-        minSdkVersion 19
-        targetSdkVersion 28 // AS默认30
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion this.rootProject.android.minSdkVersion
+        targetSdkVersion this.rootProject.android.targetSdkVersion
+        versionCode this.rootProject.android.versionCode
+        versionName this.rootProject.android.versionName
+        multiDexEnabled  this.rootProject.android.multiDexEnabled //多分包支持
+
 
         // testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner" // AS默认生成的支持androidx
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -36,7 +45,8 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
    //implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'com.android.support:appcompat-v7:28.0.0'
+    //implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation this.rootProject.depsLibsAddress.appcompat//改写后代替上行appcompat-v7:28.0.0的功能
     // AS默认生成的一些不用的依赖库，诸如androidx junit test这些都注释掉
     testImplementation 'junit:junit:4.12'//其实也应该注释掉  不注释是因为lib_audio下的com.moses.lib_audio(androidTest/test)总是生成示例但愿测试类 ExampleUnitTest.java 需要用到junit依赖包
     //androidTestImplementation 'androidx.test:runner:1.1.1'
