@@ -10,7 +10,7 @@ android {
         targetSdkVersion this.rootProject.android.targetSdkVersion
         versionCode this.rootProject.android.versionCode
         versionName this.rootProject.android.versionName
-        multiDexEnabled  this.rootProject.android.multiDexEnabled //多分包支持
+        multiDexEnabled this.rootProject.android.multiDexEnabled //多分包支持
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
@@ -28,4 +28,5 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation this.rootProject.depsLibsAddress.appcompat
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
 }
