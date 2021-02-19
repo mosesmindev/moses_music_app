@@ -28,4 +28,5 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation this.rootProject.depsLibsAddress.appcompat
+    implementation this.rootProject.depsLibsAddress.magicindicator
 }

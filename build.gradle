@@ -12,6 +12,7 @@ buildscript {//为gradle的构建引入插件plugin
     repositories {
         google()
         jcenter()
+        maven { url "https://jitpack.io" }  // 引入github的开源以来仓库，需要导入证书
         mavenCentral()//maven中心仓库
         maven {
             // 设置maven私服仓库地址
@@ -45,6 +46,7 @@ allprojects {// 为Java或者Kotlin工程引入仓库Repositories
     repositories {
         google()
         jcenter()
+        maven { url "https://jitpack.io" } // 引入github的开源以来仓库，需要导入证书
         mavenCentral()//maven中心仓库
         maven {
             // 设置maven私服仓库地址

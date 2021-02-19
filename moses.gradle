@@ -18,12 +18,14 @@ ext {
 
     //每个依赖会有各种版本，这里存入所有需要依赖的第三方库的版本号
     depsVersion = [
-            appcompat : '28.0.0'
+            appcompat : '28.0.0',
+            magicindicator : '1.5.0',
     ]
 
     // 需要依赖使用的第三方库
     depsLibsAddress = [
-            appcompat : "com.android.support:appcompat-v7:${depsVersion.appcompat}"  // app兼容库
+            appcompat : "com.android.support:appcompat-v7:${depsVersion.appcompat}", // app兼容库
+            magicindicator : "com.github.hackware1993:MagicIndicator:${depsVersion.magicindicator}",
     ]
 
 }
