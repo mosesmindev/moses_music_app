@@ -3,16 +3,13 @@ package com.moses.moses_voice.view.home;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 
-// import androidx.drawerlayout.widget.DrawerLayout;
-// import androidx.viewpager.widget.ViewPager;
-
+import com.moses.lib_common_ui.base.BaseActivity;
 import com.moses.lib_common_ui.pager_indicator.ScaleTransitionPagerTitleView;
 import com.moses.moses_voice.R;
 import com.moses.moses_voice.view.home.adapter.HomePagerAdapter;
@@ -29,7 +26,7 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.Simple
 /**
  * 首页Activity
  */
-public class HomeActivity extends FragmentActivity implements View.OnClickListener {
+public class HomeActivity extends BaseActivity implements View.OnClickListener {
 
     // 指定首页要出现的卡片
     private static final CHANNEL[] CHANNELS =
