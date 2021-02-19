@@ -5,12 +5,17 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 
+// import androidx.drawerlayout.widget.DrawerLayout;
+// import androidx.viewpager.widget.ViewPager;
+
 import com.moses.lib_common_ui.pager_indicator.ScaleTransitionPagerTitleView;
 import com.moses.moses_voice.R;
+import com.moses.moses_voice.view.home.adapter.HomePagerAdapter;
 import com.moses.moses_voice.view.home.model.CHANNEL;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -37,7 +42,11 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
     private DrawerLayout mDrawerLayout;
     private View mToggleView;
     private View mSearchView;
+
+    // 开始初始化ViewPager
     private ViewPager mViewPager;
+    // 要初始化ViewPager，离不开Adapter  所以先创建一个Adapter
+    private HomePagerAdapter mAdapter;
 
 
     @Override
@@ -57,7 +66,10 @@ public class HomeActivity extends FragmentActivity implements View.OnClickListen
         mToggleView.setOnClickListener(this);
         mSearchView = findViewById(R.id.search_view);
         mViewPager = findViewById(R.id.view_pager);
-        //mViewPager.setAdapter(mAdapter);
+        // 初始化Adapter
+        mAdapter = new HomePagerAdapter(getSupportFragmentManager(), CHANNELS);
+        // 为ViewPaget设置Adapter
+        mViewPager.setAdapter(mAdapter);
         initMagicIndicator();
     }
 
