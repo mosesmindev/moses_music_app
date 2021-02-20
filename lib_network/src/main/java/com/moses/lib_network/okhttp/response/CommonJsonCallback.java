@@ -1,5 +1,4 @@
 package com.moses.lib_network.okhttp.response;
-
 import android.os.Handler;
 import android.os.Looper;
 
@@ -127,6 +126,7 @@ public class CommonJsonCallback implements Callback {
             mListener.onFailure(new OkHttpException(OTHER_ERROR, e.getMessage()));
             e.printStackTrace();
         }
+
 
     }
 
