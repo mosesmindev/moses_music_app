@@ -125,5 +125,41 @@ public class CommonRequest {
                 .build();
     }
 
+    /**
+     * 封装文件上传类型请求
+     * 文件上传需要使用Post类型
+     * @param url
+     * @param params
+     * @return
+     */
+    // 实现封装文件请求之前，先定义一个多媒体的请求类型
+    public static final MediaType FILE_TYPE =  MediaType.parse("application/octet-stream");
+    public static Request createMultiPostRequest(String url, RequestParams params){
+        // 构造者模式创建requestbody对象
+        MultipartBody.Builder  requestBody = new MultipartBody.Builder();
+        // 由于是文件上传请求，所以我们指定为表单类型来提交
+        requestBody.setType(MultipartBody.FORM);
+        // 开始遍历请求参数
+        if (params != null) {
+            // 由于是文件上传，这里的Value类型不能用String，需要使用Object来代替；使用fileParams
+            for (Map.Entry<String, Object> entry : params.fileParams.entrySet()) {
+                // 将参数添加到MultipartBody类型的requestBody中
+
+                // 如果entry的值类型是一个文件
+                if (entry.getValue() instanceof File) {
+                    // 添加请求头部分   RequestBody的创建中要传递媒体类型
+                    requestBody.addPart(Headers.of("Content-Disposition", "form-data; name=\"" + entry.getKey() + "\""),
+                            RequestBody.create(FILE_TYPE, (File) entry.getValue()));
+                }
+                // 如果entry是一个json字符串或者json实体对象，本质上是一个String类型
+                else if (entry.getValue() instanceof String) {
+                    // 添加请求头部分
+                    requestBody.addPart(Headers.of("Content-Disposition", "form-data; name=\"" + entry.getKey() + "\""),
+                            RequestBody.create(null, (String) entry.getValue()));
+                }
+            }
+        }
+        return new Request.Builder().url(url).post(requestBody.build()).build();
+    }
 
 }
