@@ -22,7 +22,7 @@ import okhttp3.RequestBody;
  */
 public class CommonRequest {
     /**
-     * 重载一个createPostRequest方法 ，因为平时开发中我们自定义请求头headers的情况非常少，
+     * 重载一个不带Headers的createPostRequest方法 ，因为平时开发中我们自定义请求头headers的情况非常少，
      * 大部分的headers都是在构造http的时候统一传好了。
      *
      * 直接调用封装好的带headers的createPostRequest，并且将headers参数置为null即可。
@@ -35,7 +35,7 @@ public class CommonRequest {
     }
 
     /**
-     * 对外创建post请求对象
+     * 对外创建post请求对象，带请求头headers
      * @param url
      * @param params
      * @param headers
@@ -78,6 +78,52 @@ public class CommonRequest {
               .build();
 
       return request;
-
   }
+
+    /**
+     * 重载一个不带Headers的createGetRequest方法
+     * @param url
+     * @param params
+     * @return
+     */
+    public static Request createGetRequest(String url, RequestParams params){
+        return createGetRequest(url ,params, null);
+    }
+    /**
+     * 带请求头的Get请求
+     * @param url
+     * @param params
+     * @param headers
+     * @return
+     */
+    public static Request createGetRequest(String url, RequestParams params, RequestParams headers){
+        // 1、构建参数
+        // 由于get类型的请求，请求参数是在请求url之后的，所以首先通过一个StringBuilder将请求参数params缀到url之后
+        StringBuilder urlBuilder = new StringBuilder(url).append("?");
+        if (params != null){
+            // 参数遍历
+            for (Map.Entry<String, String> entry : params.urlParams.entrySet()) {
+                urlBuilder.append(entry.getKey()).append("=").append(entry.getValue()).append("&");
+            }
+        }
+
+        // 使用Headers的构建者模式创建请求参数体对象mHeaderBuilder
+        Headers.Builder mHeaderBuilder = new Headers.Builder();
+        // 2、构建请求头：Headers
+        if (headers != null) {
+            for (Map.Entry<String, String> entry : headers.urlParams.entrySet()) {
+                // 请求头遍历
+                mHeaderBuilder.add(entry.getKey(), entry.getValue());
+            }
+        }
+
+        Headers mHeader = mHeaderBuilder.build();
+        return new Request.Builder().
+                url(urlBuilder.substring(0, urlBuilder.length() - 1))
+                .headers(mHeader)
+                .get()
+                .build();
+    }
+
+
 }
