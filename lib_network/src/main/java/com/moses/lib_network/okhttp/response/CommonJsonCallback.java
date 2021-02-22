@@ -126,9 +126,6 @@ public class CommonJsonCallback implements Callback {
             mListener.onFailure(new OkHttpException(OTHER_ERROR, e.getMessage()));
             e.printStackTrace();
         }
-
-
     }
-
 
 }
