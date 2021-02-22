@@ -13,8 +13,6 @@ import com.moses.moses_voice.model.user.User;
  * 即所有的请求接口都会在这个类中存放
  */
 public class RequestCenter {
-
-
     /**
      * 常量（静态）内部类  HttpConstants  中：
      * 存放所有的请求地址，即存放所有的请求接口地址，都是一些静态常量
@@ -43,8 +41,7 @@ public class RequestCenter {
                                   Class<?> clazz) { CommonOkHttpClient.post(CommonRequest.
                 createPostRequest(url, params), new DisposeDataHandle(listener, clazz));  // listener：回调listener，通知业务层； clazz：要解析的对象目标类类型
     }
-
-
+    
     /**
      * 用户登陆请求
      */
